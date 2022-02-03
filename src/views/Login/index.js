@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
 
 //! para redux
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import {checkIfUserIsAuth} from "../../redux/actions/login";
+import { isAuthSel, isChekingAuthSel } from "../../redux/selector";
 
 export default function Login() {
 	const [name, setName] = useState("");
@@ -12,9 +13,11 @@ export default function Login() {
 
 	//! con useDispatch()podemos disparar acciones
 	const dispatch = useDispatch();
-  const {isChekingAuth, isAuth} = useSelector((state) => state.loginReducer)
-  // console.log(state)
-	//! console.log(dispatch)
+  //! const {isChekingAuth, isAuth} = useSelector((state) => state.loginReducer)
+  const isAuth = useSelector(isAuthSel, shallowEqual)
+  const isCheckingAuth = useSelector(isChekingAuthSel, shallowEqual)
+
+  console.log(isAuth, isCheckingAuth)
 
 	
 
@@ -47,7 +50,7 @@ export default function Login() {
 		}
 	};
 
-	if (isChekingAuth) {
+	if (isCheckingAuth) {
 		return <p className="text-center mt-5">Cargando...</p>;
 	}
 
