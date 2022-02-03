@@ -1,41 +1,34 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
 
 //! para redux
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {checkIfUserIsAuth} from "../../redux/actions/login";
 
 export default function Login() {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
 	const history = useHistory();
 
 	//! con useDispatch()podemos disparar acciones
 	const dispatch = useDispatch();
+  const {isChekingAuth, isAuth} = useSelector((state) => state.loginReducer)
+  // console.log(state)
 	//! console.log(dispatch)
 
-	// const checkIfUserIsAuthRef = useRef();
-
-	// const checkIfUserIsAuth = () => {
-
-	//! usamos la funcion checkLogin que va dentro del dispatch
-	//! lo que pasemos dentro del checkLogin() va a llegar en el payload
-	// dispatch(checkLogin())
-
-	//   const isAuth = localStorage.getItem("@superhero-isAuth")?.length > 0;
-	//   if (isAuth) {
-	//     history.push("/search");
-	//   } else {
-	//     setIsLoading(false);
-	//   }
-	// };
-
-	// checkIfUserIsAuthRef.current = checkIfUserIsAuth;
+	
 
 	useEffect(() => {
 		dispatch(checkIfUserIsAuth());
 	}, []);
+
+  useEffect(() => {
+    if(isAuth){
+      history.push("/search");
+    }
+    
+  }, [isAuth]);
+  
 
 	const handleSubmitForm = (evt) => {
 		evt.preventDefault();
@@ -54,7 +47,7 @@ export default function Login() {
 		}
 	};
 
-	if (isLoading) {
+	if (isChekingAuth) {
 		return <p className="text-center mt-5">Cargando...</p>;
 	}
 
