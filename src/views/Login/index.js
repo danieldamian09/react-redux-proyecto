@@ -3,7 +3,7 @@ import {useHistory} from "react-router";
 
 //! para redux
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
-import {checkIfUserIsAuth} from "../../redux/actions/login";
+import {checkIfUserIsAuth, submitLogin} from "../../redux/actions/login";
 import { isAuthSel, isChekingAuthSel } from "../../redux/selector";
 
 export default function Login() {
@@ -37,16 +37,8 @@ export default function Login() {
 		evt.preventDefault();
 
 		if (name?.length && email?.length) {
-			localStorage.setItem("@superhero-isAuth", "true");
-			localStorage.setItem(
-				"@superhero-data",
-				JSON.stringify({
-					name,
-					email,
-				})
-			);
-
-			history.push("/search");
+			dispatch(submitLogin(name, email))
+			// history.push("/search");
 		}
 	};
 

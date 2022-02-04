@@ -13,13 +13,14 @@ const initialState= {
 const loginReducer = createReducer(initialState, (builder) => {
 	builder
 		.addCase(checkingAuth.toString(), (state, action) => {
-      // aca creo la bandera isChekingAuth
+      //! aca creo la bandera isChekingAuth
 			return {
         ...state,
         isCheckingAuth: true,
       }
 		})
 		.addCase(completedAuth.toString(), (state, action) => {
+      //! aca isAuth va a ser true ya que de la acction me viene una comprabacion del localstorage "ojo si hay el token en localstorage"
 			return {
         ...state, 
         isAuth: action.payload.isAuth,
