@@ -4,7 +4,12 @@ import {useHistory} from "react-router";
 //! para redux
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import {checkIfUserIsAuth, submitLogin} from "../../redux/actions/login";
-import { isAuthSel, isChekingAuthSel } from "../../redux/selector";
+import {
+	isAuthSel,
+	isChekingAuthSel,
+	isSendingAuthFormSel,
+	isSuccessLoggedSel,
+} from "../../redux/selector";
 
 export default function Login() {
 	const [name, setName] = useState("");
@@ -13,33 +18,39 @@ export default function Login() {
 
 	//! con useDispatch()podemos disparar acciones
 	const dispatch = useDispatch();
-  //! const {isChekingAuth, isAuth} = useSelector((state) => state.loginReducer)
-  const isAuth = useSelector(isAuthSel, shallowEqual)
-  const isCheckingAuth = useSelector(isChekingAuthSel, shallowEqual)
 
+	//! estas serian nuestras banderas que vienen del initialState
+	const isAuth = useSelector(isAuthSel, shallowEqual);
+	const isCheckingAuth = useSelector(isChekingAuthSel, shallowEqual);
+	const isSendingAuthForm = useSelector(isSendingAuthFormSel, shallowEqual);
+	const isSuccessLogged = useSelector(isSuccessLoggedSel, shallowEqual);
 
 	useEffect(() => {
 		dispatch(checkIfUserIsAuth());
 	}, []);
 
-  useEffect(() => {
-    if(isAuth){
-      history.push("/search");
-    }
-    
-  }, [isAuth]);
-  
+	useEffect(() => {
+		if (isAuth) {
+			history.push("/search");
+		}
+	}, [isAuth]);
+
+	useEffect(() => {
+		if(isSuccessLogged){
+			history.push("/search");
+		}
+	}, [isSuccessLogged])
 
 	const handleSubmitForm = (evt) => {
 		evt.preventDefault();
 
 		if (name?.length && email?.length) {
-			dispatch(submitLogin(name, email))
+			dispatch(submitLogin(name, email));
 			// history.push("/search");
 		}
 	};
 
-	if (isCheckingAuth) {
+	if (isCheckingAuth || isSendingAuthForm) {
 		return <p className="text-center mt-5">Cargando...</p>;
 	}
 
