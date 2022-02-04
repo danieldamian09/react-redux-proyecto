@@ -17,9 +17,6 @@ export default function Login() {
   const isAuth = useSelector(isAuthSel, shallowEqual)
   const isCheckingAuth = useSelector(isChekingAuthSel, shallowEqual)
 
-  console.log(isAuth, isCheckingAuth)
-
-	
 
 	useEffect(() => {
 		dispatch(checkIfUserIsAuth());
