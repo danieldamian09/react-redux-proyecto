@@ -20,21 +20,21 @@ const superHeroesReducer = createReducer(initialState, (builder) => {
 		.addCase(startFetchingSuperheroes.toString(), (state, action) => {
 			return {
 				...state,
-				isfectchingSuperhero: true,
+				isFectchingSuperhero: true,
 				error: undefined,
 			};
 		})
 		.addCase(successFetchingSuperheroes.toString(), (state, action) => {
 			return {
 				...state,
-				isfectchingSuperhero: false,
+				isFectchingSuperhero: false,
 				superheroes: action.payload.data,
 			};
 		})
 		.addCase(errorFetchingSuperheroes.toString(), (state, action) => {
 			return {
 				...state,
-				isfectchingSuperhero: false,
+				isFectchingSuperhero: false,
 				superheroes: [],
 				error: action.payload.error,
 			};
