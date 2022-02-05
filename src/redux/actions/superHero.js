@@ -22,7 +22,7 @@ export const fetchSuperheroes = (text) => async(dispatch) => {
     dispatch(startFetchingSuperheroes())
     const { data } = await apiCall.get(`/search/${text}`);
     console.log(data)
-    dispatch(successFetchingSuperheroes({data}))
+    dispatch(successFetchingSuperheroes({data: data?.results}))
 
   } catch (error) {
     //* pasamos como payload el error
