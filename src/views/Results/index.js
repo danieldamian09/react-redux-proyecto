@@ -24,7 +24,7 @@ export default function Results() {
 	const dispatch = useDispatch();
 	//* nuestras banderas que viene de los selectores
 	const isFectchingSuperhero = useSelector(isFectchingSuperheroSel, shallowEqual);
-  const superHeroesError = useSelector(superHeroesErrorSel, shallowEqual)
+  const superHeroesErr = useSelector(superHeroesErrorSel, shallowEqual)
   const superHeroes = useSelector(superheroesSel, shallowEqual)
 
 	//* en el useEffect disparo mi actions que va a hacer la llamada a la API por medio del thunk
@@ -37,10 +37,10 @@ export default function Results() {
 			<Header />
 			<div className="px-3 pb-2 mt-12">
 				<h2 className="text-xl font-bold">Resultados para: {searchText}</h2>
-				{/* {isLoading && <Spinner />}
-        <ErrorComponent error={error} />
-        <ResultsList data={results} />
-        {!isLoading && !results?.length && <NoResults />} */}
+				{isFectchingSuperhero && <Spinner />}
+        <ErrorComponent error={superHeroesErr} />
+        <ResultsList data={superHeroes} />
+        {!isFectchingSuperhero && !superHeroes?.length && <NoResults />}
 			</div>
 		</div>
 	);
