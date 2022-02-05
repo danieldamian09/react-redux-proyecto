@@ -6,15 +6,17 @@ import NoResults from "./components/NoResults";
 import Header from "../../components/Header";
 import Spinner from "../../components/Spinner";
 
+//* para Redux
 import { useDispatch } from "react-redux";
 import { fetchSuperheroes } from "../../redux/actions/superHero";
 
 export default function Results() {
   const { searchText } = useParams();
 
-  // redux
+  //* instanciar useDispatch
   const dispatch = useDispatch()
 
+  //* en el useEffect disparo mi actions que va a hacer la llamada a la API por medio del thunk
   useEffect(() => {
     dispatch(fetchSuperheroes(searchText))
   }, []);
