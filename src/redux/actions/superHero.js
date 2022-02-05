@@ -1,4 +1,6 @@
 import {createAction} from "@reduxjs/toolkit";
+//* importamos nuestro servicio para hacer las llmadas
+import apiCall from "../api"
 
 //* creamos las 3 acciones
 export const startFetchingSuperheroes = createAction(
@@ -18,7 +20,8 @@ export const fetchSuperheroes = (text) => async(dispatch) => {
     //* aca va toda la logica para obtener los valores
 
     dispatch(startFetchingSuperheroes())
-    const { data } = await axios.get(`https://superheroapi.com/api.php/10223232565340348/search/${text}`);
+    const { data } = await apiCall.get(`/search/${text}`);
+    console.log(data)
     dispatch(successFetchingSuperheroes({data}))
 
   } catch (error) {
