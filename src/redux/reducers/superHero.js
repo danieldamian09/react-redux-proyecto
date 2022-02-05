@@ -9,7 +9,7 @@ import {
 
 //* Declaramos el state inicial(estas nos van a servir como banderas en el componente)
 const initialState = {
-	isfectchingSuperhero: false,
+	isFectchingSuperhero: false,
 	error: undefined,
 	superheroes: [],
 };
