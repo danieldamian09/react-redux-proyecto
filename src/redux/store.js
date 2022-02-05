@@ -1,9 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit"
-import loginReducer from "./reducers/login"
 
+//* importamos todos nuestros reducers 
+import loginReducer from "./reducers/login"
+import superHeroesReducer from "./reducers/superHero"
 
 export default configureStore({
   reducer: {
     loginReducer,
+    superHeroesReducer
   },
 })
